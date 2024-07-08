@@ -29,7 +29,7 @@ def removeAllElements(stack):
     # Base case: if the stack is empty, return (stop recursion)
     if stack.isEmpty():
         return
-    
+
     # Recursive case: pop an element and call removeAllElements again
     stack.pop()
     removeAllElements(stack)
