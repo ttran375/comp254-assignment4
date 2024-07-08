@@ -168,9 +168,7 @@ def main():
     position = plist.find_position(search_element)
 
     if position:
-        print(
-            f"Element {search_element} found."
-        )
+        print(f"Element {search_element} found.")
     else:
         print(f"Element {search_element} not found.")
 
@@ -179,9 +177,7 @@ def main():
     position = plist.find_position(search_element)
 
     if position:
-        print(
-            f"Element {search_element} found."
-        )
+        print(f"Element {search_element} found.")
     else:
         print(f"Element {search_element} not found.")
 
