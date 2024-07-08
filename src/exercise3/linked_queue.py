@@ -83,31 +83,31 @@ class LinkedQueue:
         self._tail = newest  # update reference to tail node
         self._size += 1
 
-    def concatenate(self, Q2):
+    def concatenate(self, q2):
         """
         Concatenates another LinkedQueue to the end of this queue.
         """
-        # Ensure the argument Q2 is a LinkedQueue
-        if not isinstance(Q2, LinkedQueue):
-            raise TypeError("Q2 must be a LinkedQueue")
+        # Ensure the argument q2 is a LinkedQueue
+        if not isinstance(q2, LinkedQueue):
+            raise TypeError("q2 must be a LinkedQueue")
 
-        # No action needed if Q2 is empty
-        if Q2.is_empty():
+        # No action needed if q2 is empty
+        if q2.is_empty():
             return
 
-        # If the current queue is empty, set its head to Q2's head
+        # If the current queue is empty, set its head to q2's head
         if self.is_empty():
-            self._head = Q2._head
+            self._head = q2._head
         else:
-            # Link the current queue's tail to Q2's head
-            self._tail._next = Q2._head
+            # Link the current queue's tail to q2's head
+            self._tail._next = q2._head
 
-        # Update the current queue's tail to Q2's tail
-        self._tail = Q2._tail
-        # Increase the size of the current queue by Q2's size
-        self._size += Q2._size
+        # Update the current queue's tail to q2's tail
+        self._tail = q2._tail
+        # Increase the size of the current queue by q2's size
+        self._size += q2._size
 
-        # Reset Q2 to an empty state
-        Q2._head = None
-        Q2._tail = None
-        Q2._size = 0
+        # Reset q2 to an empty state
+        q2._head = None
+        q2._tail = None
+        q2._size = 0

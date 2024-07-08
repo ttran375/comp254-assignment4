@@ -68,7 +68,6 @@ class PositionalList(_DoublyLinkedBase):
         if node is self._header or node is self._trailer:
             return None  # boundary violation
         return self.Position(self, node)  # legitimate position
-            
 
     # ------------------------------- accessors -------------------------------
     def first(self):
