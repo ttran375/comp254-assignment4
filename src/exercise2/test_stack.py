@@ -21,7 +21,7 @@ def test_remove_all_elements(stack, elements):
 
     remove_all_elements(stack)
 
-    assert stack.isEmpty()
+    assert stack.is_empty()
 
 
 if __name__ == "__main__":
