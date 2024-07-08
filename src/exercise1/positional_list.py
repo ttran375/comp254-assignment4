@@ -135,3 +135,56 @@ class PositionalList(_DoublyLinkedBase):
         old_value = original._element  # temporarily store old element
         original._element = e  # replace with new element
         return old_value  # return the old element value
+
+    def find_position(self, e):
+        """Return the first Position containing element e, or None if not found."""
+        cursor = self.first()
+        while cursor:
+            if cursor.element() == e:
+                return cursor
+            cursor = self.after(cursor)
+        return None
+
+
+def main():
+    # Create a new PositionalList instance
+    plist = PositionalList()
+
+    # Add some elements to the list
+    plist.add_last(10)
+    plist.add_last(20)
+    plist.add_last(30)
+    plist.add_last(40)
+    plist.add_last(50)
+
+    # Print the elements in the list
+    print("Elements in the list:")
+    for element in plist:
+        print(element, end=" ")
+    print()
+
+    # Use find_position to locate an element
+    search_element = 30
+    position = plist.find_position(search_element)
+
+    if position:
+        print(
+            f"Element {search_element} found."
+        )
+    else:
+        print(f"Element {search_element} not found.")
+
+    # Try to find a non-existent element
+    search_element = 60
+    position = plist.find_position(search_element)
+
+    if position:
+        print(
+            f"Element {search_element} found."
+        )
+    else:
+        print(f"Element {search_element} not found.")
+
+
+if __name__ == "__main__":
+    main()
