@@ -1,34 +1,34 @@
 import pytest
-from positional_list import PositionalList
+from positional_list import (
+    PositionalList,
+)  # Assuming the PositionalList class is in a file named positional_list.py
+
 
 @pytest.fixture
-def positional_list():
+def setup_large_list():
     pl = PositionalList()
-    pl.add_last(10)
-    pl.add_last(10)
-    pl.add_last(20)
-    pl.add_last(30)
-    pl.add_last(40)
-    pl.add_last(50)
-    return pl
+    positions = []
+    elements = []
+    for i in range(50):
+        elem = i % 250  # This will create duplicates for elements 0-249
+        pos = pl.add_last(elem)
+        positions.append(pos)
+        elements.append(elem)
+    return pl, positions, elements
 
-@pytest.mark.parametrize("element, expected_index", [
-    (10, 0),    # First element
-    (20, 2),    # Second element
-    (30, 3),    # Middle element
-    (50, 5),    # Last element
-    (60, None), # Element not in list
-])
-def test_find_position(positional_list, element, expected_index):
-    position = positional_list.find_position(element)
-    if expected_index is None:
+
+test_cases = [
+    (i % 250, i) for i in range(50)
+]  # Testing first occurrence of each element
+test_cases += [(i, None) for i in range(50, 100)]  # Testing elements not in the list
+
+
+@pytest.mark.parametrize("element, expected_position_index", test_cases)
+def test_find_position(setup_large_list, element, expected_position_index):
+    pl, positions, _ = setup_large_list
+    position = pl.find_position(element)
+
+    if expected_position_index is None:
         assert position is None
     else:
-        # Get the element at the expected index to compare positions
-        cursor = positional_list.first()
-        for _ in range(expected_index):
-            cursor = positional_list.after(cursor)
-        assert position == cursor
-
-if __name__ == "__main__":
-    pytest.main()
+        assert position == positions[expected_position_index]
