@@ -50,7 +50,7 @@ class PositionalList(_DoublyLinkedBase):
 
         def __ne__(self, other):
             """Return True if other does not represent the same location."""
-            return not (self == other)  # opposite of __eq__
+            return not self == other  # opposite of __eq__
 
     # ------------------------------- utility methods -------------------------------
     def _validate(self, p):
@@ -67,8 +67,8 @@ class PositionalList(_DoublyLinkedBase):
         """Return Position instance for given node (or None if sentinel)."""
         if node is self._header or node is self._trailer:
             return None  # boundary violation
-        else:
-            return self.Position(self, node)  # legitimate position
+        return self.Position(self, node)  # legitimate position
+            
 
     # ------------------------------- accessors -------------------------------
     def first(self):

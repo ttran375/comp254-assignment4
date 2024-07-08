@@ -5,34 +5,34 @@ class Stack:
     def size(self):
         return len(self._elements)
 
-    def isEmpty(self):
+    def is_empty(self):
         return len(self._elements) == 0
 
     def push(self, e):
         self._elements.append(e)
 
     def top(self):
-        if self.isEmpty():
+        if self.is_empty():
             raise IndexError("Top from an empty stack")
         return self._elements[-1]
 
     def pop(self):
-        if self.isEmpty():
+        if self.is_empty():
             raise IndexError("Pop from an empty stack")
         return self._elements.pop()
 
 
-def removeAllElements(stack):
+def remove_all_elements(stack):
     """
     Recursively removes all elements from the given stack.
     """
     # Base case: if the stack is empty, return (stop recursion)
-    if stack.isEmpty():
+    if stack.is_empty():
         return
 
-    # Recursive case: pop an element and call removeAllElements again
+    # Recursive case: pop an element and call remove_all_elements again
     stack.pop()
-    removeAllElements(stack)
+    remove_all_elements(stack)
 
 
 def main():
@@ -47,10 +47,10 @@ def main():
     )
 
     # Remove all elements
-    removeAllElements(stack)
+    remove_all_elements(stack)
 
     # Check if the stack is empty
-    if stack.isEmpty():
+    if stack.is_empty():
         print("All elements removed. Stack is now empty.")
     else:
         print("Stack is not empty. Elements remain.")

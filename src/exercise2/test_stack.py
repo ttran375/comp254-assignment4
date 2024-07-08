@@ -1,5 +1,5 @@
 import pytest
-from stack import Stack, removeAllElements
+from stack import Stack, remove_all_elements
 
 
 @pytest.fixture
@@ -15,11 +15,11 @@ def stack():
         ([1, 2, 3, 4]),  # Test with a stack containing multiple elements
     ],
 )
-def test_removeAllElements(stack, elements):
+def test_remove_all_elements(stack, elements):
     for element in elements:
         stack.push(element)
 
-    removeAllElements(stack)
+    remove_all_elements(stack)
 
     assert stack.isEmpty()
 
