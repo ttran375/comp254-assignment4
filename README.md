@@ -280,6 +280,76 @@ class _DoublyLinkedBase:
     return element                                      # return deleted element
 ```
 
+### Stack.java
+
+```java
+/*
+ * Copyright 2014, Michael T. Goodrich, Roberto Tamassia, Michael H. Goldwasser
+ *
+ * Developed for use with the book:
+ *
+ *    Data Structures and Algorithms in Java, Sixth Edition
+ *    Michael T. Goodrich, Roberto Tamassia, and Michael H. Goldwasser
+ *    John Wiley & Sons, 2014
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+package stacks;
+
+/**
+ * A collection of objects that are inserted and removed according to the last-in
+ * first-out principle. Although similar in purpose, this interface differs from
+ * java.util.Stack.
+ *
+ * @author Michael T. Goodrich
+ * @author Roberto Tamassia
+ * @author Michael H. Goldwasser
+ */
+public interface Stack<E> {
+
+  /**
+   * Returns the number of elements in the stack.
+   * @return number of elements in the stack
+   */
+  int size();
+
+  /**
+   * Tests whether the stack is empty.
+   * @return true if the stack is empty, false otherwise
+   */
+  boolean isEmpty();
+
+  /**
+   * Inserts an element at the top of the stack.
+   * @param e   the element to be inserted
+   */
+  void push(E e);
+
+  /**
+   * Returns, but does not remove, the element at the top of the stack.
+   * @return top element in the stack (or null if empty)
+   */
+  E top();
+
+  /**
+   * Removes and returns the top element from the stack.
+   * @return element removed (or null if empty)
+   */
+  E pop();
+}
+```
+
 ### linked_queue.py
 
 ```python
@@ -455,12 +525,24 @@ class SinglyLinkedList:
             node = node.next_node
         return "(" + ", ".join(result) + ")"
 
+    def concatenate(self, new_list):
+        """
+        Concatenates another singly linked list to the end of this list.
+        """
+        # Set head and tail to the new list's head and tail if the current list is empty
+        if self.is_empty():
+            self.head = new_list.head
+            self.tail = new_list.tail
 
-if __name__ == "__main__":
-    list1 = SinglyLinkedList()
-    list1.add_first("MSP")
-    list1.add_last("ATL")
-    list1.add_last("BOS")
-    list1.remove_first()
-    print(list1)
+        # If the new list is not empty
+        elif not new_list.is_empty():
+
+            # Link the last node of the current list to the first node of the new list
+            self.tail.next_node = new_list.head
+
+            # Update the tail to be the last node of the new list
+            self.tail = new_list.tail
+
+        # Update the size of the current list by adding the size of the new list
+        self.size += new_list.size
 ```
