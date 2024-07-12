@@ -1,34 +1,39 @@
 import pytest
-from positional_list import (
-    PositionalList,
-)  # Assuming the PositionalList class is in a file named positional_list.py
+from positional_list import PositionalList
 
 
 @pytest.fixture
-def setup_large_list():
+def plist():
     pl = PositionalList()
     positions = []
-    elements = []
-    for i in range(50):
-        elem = i % 250  # This will create duplicates for elements 0-249
-        pos = pl.add_last(elem)
-        positions.append(pos)
-        elements.append(elem)
-    return pl, positions, elements
+    # Adding 50 elements to the PositionalList
+    for i in range(1, 51):
+        positions.append(pl.add_last(i * 10))
+    return pl, positions
 
 
-test_cases = [
-    (i % 250, i) for i in range(50)
-]  # Testing first occurrence of each element
-test_cases += [(i, None) for i in range(50, 100)]  # Testing elements not in the list
+# Generate 100 test cases
+params = []
+for i in range(50):
+    params.append((i, (i + 1) * 10, f"p{i + 1}"))
+for i in range(50, 100):
+    params.append((-1, (i + 1) * 10, None))
 
 
-@pytest.mark.parametrize("element, expected_position_index", test_cases)
-def test_find_position(setup_large_list, element, expected_position_index):
-    pl, positions, _ = setup_large_list
-    position = pl.find_position(element)
+@pytest.mark.parametrize("index, element, position_str", params)
+def test_index_of_and_find_position(plist, index, element, position_str):
+    pl, positions = plist
 
-    if expected_position_index is None:
-        assert position is None
+    # Testing indexOf
+    if position_str is not None:
+        pos = positions[int(position_str[1:]) - 1]
+        assert pl.index_of(pos) == index
     else:
-        assert position == positions[expected_position_index]
+        with pytest.raises(ValueError):
+            pl.index_of(
+                None
+            )  # This will raise a ValueError as expected for position not found
+
+    # Testing findPosition
+    expected = None if position_str is None else positions[int(position_str[1:]) - 1]
+    assert pl.find_position(element) == expected
