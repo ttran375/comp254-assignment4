@@ -135,6 +135,16 @@ class PositionalList(_DoublyLinkedBase):
         original._element = e  # replace with new element
         return old_value  # return the old element value
 
+    def index_of(self, p):
+        index = 0
+        current_position = self.first()
+        while current_position is not None:
+            if current_position == p:
+                return index
+            index += 1
+            current_position = self.after(current_position)
+        raise ValueError("Position not found")
+
     def find_position(self, e):
         """Return the first Position containing element e, or None if not found."""
         cursor = self.first()
